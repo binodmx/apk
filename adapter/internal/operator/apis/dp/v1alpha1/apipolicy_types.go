@@ -77,7 +77,7 @@ type CORSPolicy struct {
 	AccessControlAllowCredentials bool     `json:"accessControlAllowCredentials,omitempty"`
 	AccessControlAllowHeaders     []string `json:"accessControlAllowHeaders,omitempty"`
 	AccessControlAllowMethods     []string `json:"accessControlAllowMethods,omitempty"`
-	AccessControlAllowOrigin      []string `json:"accessControlAllowOrigin,omitempty"`
+	AccessControlAllowOrigins     []string `json:"accessControlAllowOrigins,omitempty"`
 	AccessControlExposeHeaders    []string `json:"accessControlExposeHeaders,omitempty"`
 }
 

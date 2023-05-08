@@ -67,7 +67,7 @@ spec:
                         items:
                           type: string
                         type: array
-                      accessControlAllowOrigin:
+                      accessControlAllowOrigins:
                         items:
                           type: string
                         type: array
@@ -189,7 +189,7 @@ spec:
                         items:
                           type: string
                         type: array
-                      accessControlAllowOrigin:
+                      accessControlAllowOrigins:
                         items:
                           type: string
                         type: array
