@@ -54,6 +54,30 @@ spec:
               default:
                 description: RequestQueryModifier support request query modifications
                 properties:
+                  cORSPolicy:
+                    description: CORSPolicy holds CORS policy information
+                    properties:
+                      accessControlAllowCredentials:
+                        type: boolean
+                      accessControlAllowHeaders:
+                        items:
+                          type: string
+                        type: array
+                      accessControlAllowMethods:
+                        items:
+                          type: string
+                        type: array
+                      accessControlAllowOrigin:
+                        items:
+                          type: string
+                        type: array
+                      accessControlExposeHeaders:
+                        items:
+                          type: string
+                        type: array
+                      enabled:
+                        type: boolean
+                    type: object
                   requestInterceptor:
                     description: InterceptorConfig holds interceptor service information
                     properties:
@@ -152,6 +176,30 @@ spec:
               override:
                 description: PolicySpec contains API policies
                 properties:
+                  cORSPolicy:
+                    description: CORSPolicy holds CORS policy information
+                    properties:
+                      accessControlAllowCredentials:
+                        type: boolean
+                      accessControlAllowHeaders:
+                        items:
+                          type: string
+                        type: array
+                      accessControlAllowMethods:
+                        items:
+                          type: string
+                        type: array
+                      accessControlAllowOrigin:
+                        items:
+                          type: string
+                        type: array
+                      accessControlExposeHeaders:
+                        items:
+                          type: string
+                        type: array
+                      enabled:
+                        type: boolean
+                    type: object
                   requestInterceptor:
                     description: InterceptorConfig holds interceptor service information
                     properties:

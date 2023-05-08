@@ -39,6 +39,7 @@ type APIPolicySpec struct {
 // PolicySpec contains API policies
 type PolicySpec struct {
 	RequestQueryModifier RequestQueryModifier `json:"requestQueryModifier,omitempty"`
+	CORSPolicy           *CORSPolicy          `json:"cORSPolicy,omitempty"`
 	RequestInterceptor   *InterceptorConfig   `json:"requestInterceptor,omitempty"`
 	ResponseInterceptor  *InterceptorConfig   `json:"responseInterceptor,omitempty"`
 }
@@ -69,6 +70,16 @@ const (
 	// InterceptorInclusionInvocationContext is the type to include invocation context
 	InterceptorInclusionInvocationContext InterceptorInclusion = "invocation_context"
 )
+
+// CORSPolicy holds CORS policy information
+type CORSPolicy struct {
+	Enabled                       bool     `json:"enabled,omitempty"`
+	AccessControlAllowCredentials bool     `json:"accessControlAllowCredentials,omitempty"`
+	AccessControlAllowHeaders     []string `json:"accessControlAllowHeaders,omitempty"`
+	AccessControlAllowMethods     []string `json:"accessControlAllowMethods,omitempty"`
+	AccessControlAllowOrigin      []string `json:"accessControlAllowOrigin,omitempty"`
+	AccessControlExposeHeaders    []string `json:"accessControlExposeHeaders,omitempty"`
+}
 
 // InterceptorConfig holds interceptor service information
 type InterceptorConfig struct {
