@@ -7,6 +7,18 @@ spec:
   override:
     backendJwtToken:
       isEnabled: true
+    cORSPolicy:
+      enabled: true
+      accessControlAllowCredentials: false
+      accessControlAllowOrigins:
+        - "*"
+      accessControlAllowHeaders:
+        - authorization
+      accessControlAllowMethods:
+        - GET
+        - POST
+      accessControlExposeHeaders:
+        - "*"
   targetRef:
     group: gateway.networking.k8s.io
     kind: API

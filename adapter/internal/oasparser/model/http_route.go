@@ -255,6 +255,7 @@ func (swagger *AdapterInternalAPI) SetInfoHTTPRouteCR(httpRoute *gwapiv1b1.HTTPR
 			resources = append(resources, resource)
 		}
 	}
+	swagger.xWso2Cors = getCorsConfigFromAPIPolicy(apiPolicy)
 	swagger.RateLimitPolicy = parseRateLimitPolicyToInternal(ratelimitPolicy)
 	swagger.resources = resources
 	apiPolicySelected := concatAPIPolicies(apiPolicy, nil)
@@ -266,6 +267,23 @@ func (swagger *AdapterInternalAPI) SetInfoHTTPRouteCR(httpRoute *gwapiv1b1.HTTPR
 		swagger.IsBackendJWTEnabled = apiPolicySelected.Spec.Override.BackendJWTToken.IsEnabled
 	}
 	return nil
+}
+
+func getCorsConfigFromAPIPolicy(apiPolicy *dpv1alpha1.APIPolicy) *CorsConfig {
+	var corsConfig *CorsConfig
+	if apiPolicy != nil && apiPolicy.Spec.Override != nil {
+		if apiPolicy.Spec.Override.CORSPolicy != nil {
+			corsConfig = &CorsConfig{
+				Enabled:                       apiPolicy.Spec.Override.CORSPolicy.Enabled,
+				AccessControlAllowCredentials: apiPolicy.Spec.Override.CORSPolicy.AccessControlAllowCredentials,
+				AccessControlAllowHeaders:     apiPolicy.Spec.Override.CORSPolicy.AccessControlAllowHeaders,
+				AccessControlAllowMethods:     apiPolicy.Spec.Override.CORSPolicy.AccessControlAllowMethods,
+				AccessControlAllowOrigins:     apiPolicy.Spec.Override.CORSPolicy.AccessControlAllowOrigins,
+				AccessControlExposeHeaders:    apiPolicy.Spec.Override.CORSPolicy.AccessControlExposeHeaders,
+			}
+		}
+	}
+	return corsConfig
 }
 
 func parseRateLimitPolicyToInternal(ratelimitPolicy *dpv1alpha1.RateLimitPolicy) *RateLimitPolicy {
