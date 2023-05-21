@@ -210,6 +210,7 @@ func (swagger *AdapterInternalAPI) SetInfoHTTPRouteCR(httpRoute *gwapiv1b1.HTTPR
 		}
 
 		addOperationLevelInterceptors(&policies, resourceAPIPolicy, httpRouteParams.InterceptorServiceMapping, httpRouteParams.BackendMapping)
+		addOPAPolicy(&policies, resourceAPIPolicy)
 
 		loggers.LoggerOasparser.Debug("Calculating auths for API ...")
 		securities, securityDefinitions, disabledSecurity := getSecurity(concatAuthScheme(resourceAuthScheme), scopes)
@@ -344,6 +345,24 @@ func addOperationLevelInterceptors(policies *OperationPolicies, apiPolicy *dpv1a
 					Parameters: policyParameters,
 				})
 			}
+		}
+	}
+}
+
+func addOPAPolicy(policies *OperationPolicies, apiPolicy *dpv1alpha1.APIPolicy) {
+	if apiPolicy != nil && apiPolicy.Spec.Override != nil {
+		if apiPolicy.Spec.Override.OPAPolicy != nil {
+			policyParameters := make(map[string]interface{})
+			policyParameters[constants.ServerURL] = apiPolicy.Spec.Override.OPAPolicy.ServerURL
+			policyParameters[constants.Policy] = apiPolicy.Spec.Override.OPAPolicy.Policy
+			policies.Request = append(policies.Request, Policy{
+				PolicyName: constants.PolicyOPA,
+				Action:     constants.ActionOPA,
+				Parameters: policyParameters,
+				IsPassToEnforcer: true,
+			})
+			loggers.LoggerOasparser.Infof("[DEBUG] OPA Policy: %+v", policyParameters)
+			loggers.LoggerOasparser.Infof("[DEBUG] Policies.Request: %+v", policies.Request)
 		}
 	}
 }

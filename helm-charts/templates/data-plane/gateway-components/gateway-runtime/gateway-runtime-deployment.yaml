@@ -37,7 +37,7 @@ spec:
           image: busybox:1.32
           env:
             - name: ADAPTER_HOST
-              value: {{ template "apk-helm.resource.prefix" . }}-adapter-service.{{ .Release.Namespace }}.svc
+              value: {{ template "apk-helm.resource.prefix" . }}-adapter-service.{{ .Release.Namespace }}.svc.cluster.local
             - name: ADAPTER_XDS_PORT
               value : "18000"  
           command: ['sh', '-c', 'echo -e "Checking for the availability of Adapter deployment"; while ! nc -z $ADAPTER_HOST $ADAPTER_XDS_PORT; do sleep 1; printf "-"; done; echo -e "  >> Adapter has started";']

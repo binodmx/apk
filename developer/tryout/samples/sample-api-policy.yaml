@@ -19,6 +19,17 @@ spec:
         - POST
       accessControlExposeHeaders:
         - "*"
+    oPAPolicy:
+      serverURL: http://localhost:8181/v1/data
+      policy: policyName
+      rule: ruleName
+      accessToken: accessToken
+      sendAccessToken: false
+      additionalProperties:
+        - property1
+        - property2
+      maxOpenConnections: 5
+      connectionTimeout: 30
   targetRef:
     group: gateway.networking.k8s.io
     kind: API

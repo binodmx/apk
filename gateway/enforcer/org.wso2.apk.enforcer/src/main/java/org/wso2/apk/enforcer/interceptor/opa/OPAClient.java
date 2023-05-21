@@ -73,10 +73,11 @@ public class OPAClient {
 
     public boolean validateRequest(RequestContext requestContext, Map<String, String> policyAttrib)
             throws OPASecurityException {
+        log.info("[DEBUG] Validating OPA policy...");
         String requestGeneratorClassName = policyAttrib.get("requestGenerator");
         OPARequestGenerator requestGenerator = requestGeneratorMap.get(requestGeneratorClassName);
         if (requestGenerator == null) {
-            log.error("OPA Request Generator Implementation is not found in the " +
+            log.info("OPA Request Generator Implementation is not found in the " +
                             "classPath under the provided name: {} {}",
                     requestGeneratorClassName, ErrorDetails.errorLog(LoggingConstants.Severity.MINOR, 6103));
             throw new OPASecurityException(APIConstants.StatusCodes.INTERNAL_SERVER_ERROR.getCode(),
@@ -138,6 +139,7 @@ public class OPAClient {
                                         Map<String, String> clientOptions) throws OPASecurityException {
         try {
             URL url = new URL(serverEp);
+            log.info("[DEBUG] Calling OPA server...");
             KeyStore opaKeyStore = ConfigHolder.getInstance().getOpaKeyStore();
             try (CloseableHttpClient httpClient = (CloseableHttpClient) FilterUtils.getHttpClient(url.getProtocol(),
                     opaKeyStore, clientOptions)) {

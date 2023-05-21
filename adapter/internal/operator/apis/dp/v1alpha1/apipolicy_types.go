@@ -41,12 +41,36 @@ type PolicySpec struct {
 	RequestQueryModifier RequestQueryModifier   `json:"requestQueryModifier,omitempty"`
 	RequestInterceptors  []InterceptorReference `json:"requestInterceptors,omitempty"`
 	ResponseInterceptors []InterceptorReference `json:"responseInterceptors,omitempty"`
-	BackendJWTToken      *BackendJWTToken     `json:"backendJwtToken,omitempty"`
+	BackendJWTToken      *BackendJWTToken       `json:"backendJwtToken,omitempty"`
+	CORSPolicy           *CORSPolicy            `json:"cORSPolicy,omitempty"`
+	OPAPolicy            *OPAPolicy             `json:"oPAPolicy,omitempty"`
 }
 
 // BackendJWTToken holds backend JWT token information
 type BackendJWTToken struct {
 	IsEnabled bool `json:"isEnabled,omitempty"`
+}
+
+// CORSPolicy holds CORS policy information
+type CORSPolicy struct {
+	Enabled                       bool     `json:"enabled,omitempty"`
+	AccessControlAllowCredentials bool     `json:"accessControlAllowCredentials,omitempty"`
+	AccessControlAllowHeaders     []string `json:"accessControlAllowHeaders,omitempty"`
+	AccessControlAllowMethods     []string `json:"accessControlAllowMethods,omitempty"`
+	AccessControlAllowOrigins     []string `json:"accessControlAllowOrigins,omitempty"`
+	AccessControlExposeHeaders    []string `json:"accessControlExposeHeaders,omitempty"`
+}
+
+// OPAPolicy holds OPA policy information
+type OPAPolicy struct {
+	ServerURL            string   `json:"serverURL,omitempty"`
+	Policy               string   `json:"policy,omitempty"`
+	Rule                 string   `json:"rule,omitempty"`
+	AccessToken          string   `json:"accessToken,omitempty"`
+	SendAccessToken      bool     `json:"sendAccessToken,omitempty"`
+	AdditionalProperties []string `json:"additionalProperties,omitempty"`
+	MaxOpenConnections   int      `json:"maxOpenConnections,omitempty"`
+	ConnectionTimeout    int      `json:"connectionTimeout,omitempty"`
 }
 
 // RequestQueryModifier allows to modify request query params

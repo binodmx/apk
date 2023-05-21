@@ -93,6 +93,8 @@ public class MediationPolicyFilter implements Filter {
                 return true;
             }
             case "OPA": {
+                log.info("[JAVA DEBUG] READING OPA POLICY...");
+                log.info("[JAVA DEBUG] OPA POLICY: " + policy.getParameters().toString());
                 return opaAuthValidation(requestContext, policy.getParameters());
             }
         }
